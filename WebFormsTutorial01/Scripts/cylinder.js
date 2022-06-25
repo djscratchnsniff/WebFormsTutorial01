@@ -98,7 +98,7 @@ btnCylItemsFetch.addEventListener('click', (e) => {
 });
 
 btnCylItemsAxios.addEventListener('click', (e) => {
-    var url = `${globalUrl}/GetCylinderItems.asmx/Cylinder_getCylinderItems`
+    var url = `${globalUrl}/Cylinders.asmx/Cylinder_getCylinderItems`
     // Make a request for a user with a given ID
     axios.get(`${url}`)
         .then(function (response) {
