@@ -12,8 +12,8 @@ const itemsAxiosResult = document.getElementById('itemsAxiosResult');
 
 // add click event to btnCylinders
 btnCylXMLHttp.addEventListener('click', (e) => {
-    //var url = "http://localhost:93/Cylinders.asmx/Cylinder_getCylinderSize";
-    var url = `${globalUrl}/Cylinders.asmx/Cylinder_getCylinderSize`
+    //var url = "http://localhost:93/Cylinders/Cylinder_getCylinderSize";
+    var url = `${globalUrl}/Cylinders/WS_GetCylinderSize.asmx/Cylinder_GetCylinderSizes`
 
     var xhr = new XMLHttpRequest;
     xhr.open('GET', url, true);
@@ -57,7 +57,7 @@ btnCylXMLHttp.addEventListener('click', (e) => {
 });
 
 async function FetchTest() {
-    var url = `${globalUrl}/GetCylinderItems.asmx/Cylinder_getCylinderItems`;
+    var url = `${globalUrl}/Cylinders/WS_GetCylinderItems.asmx/Cylinder_getCylinderItems`; 
 
     var cylinderItem = {
         "cylinderItem":
@@ -98,7 +98,7 @@ btnCylItemsFetch.addEventListener('click', (e) => {
 });
 
 btnCylItemsAxios.addEventListener('click', (e) => {
-    var url = `${globalUrl}/Cylinders.asmx/Cylinder_getCylinderItems`
+    var url = `${globalUrl}/Cylinders/WS_GetCylinderItems.asmx/Cylinder_getCylinderItems`
     // Make a request for a user with a given ID
     axios.get(`${url}`)
         .then(function (response) {
