@@ -43,7 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataObjects\CylinderItems.cs" />
+    <Compile Include="DataObjects\CylinderSize.cs" />
     <Compile Include="DataSprocs\GetCylinderItems.cs" />
+    <Compile Include="DataSprocs\GetCylinderSize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DA_Lib\StoredProceduresProcesses.cs" />
   </ItemGroup>

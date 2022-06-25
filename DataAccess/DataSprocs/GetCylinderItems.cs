@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Configuration;
-using System.Globalization;
+using DataAccess.DataObjects;
 
 namespace DataAccess.DataSprocs
 {
@@ -19,8 +13,6 @@ namespace DataAccess.DataSprocs
 
             DataSet ds = sp.ExecuteProcedureReturnDataSet("getCylinderItems", null);
             DataTable dt = ds.Tables[0];
-            string supItem = string.Empty;
-            string itemMisId = string.Empty;
             foreach (DataRow row in dt.Rows)
             {
                 CylinderItems item = new CylinderItems();
