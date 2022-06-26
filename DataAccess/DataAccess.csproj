@@ -42,8 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataObjects\Cylinder.cs" />
     <Compile Include="DataObjects\CylinderItems.cs" />
     <Compile Include="DataObjects\CylinderSize.cs" />
+    <Compile Include="DataSprocs\Cylinder_GetInformation.cs" />
     <Compile Include="DataSprocs\GetCylinderItems.cs" />
     <Compile Include="DataSprocs\GetCylinderSize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

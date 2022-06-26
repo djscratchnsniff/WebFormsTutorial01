@@ -2,6 +2,8 @@
 const btnCylXMLHttp = document.getElementById('btnCylXMLHttp');
 const btnCylItemsFetch = document.getElementById('btnCylItemsFetch');
 const btnCylItemsAxios = document.getElementById('btnCylItemsAxios');
+const btnFetchPost = document.getElementById('btnFetchPost');
+const btnAxiosPost = document.getElementById('btnAxiosPost');
 
 //temp global variables
 var globalUrl = "http://localhost:93"
@@ -9,6 +11,8 @@ var globalUrl = "http://localhost:93"
 const result = document.getElementById('result');
 const itemsResult = document.getElementById('itemsResult');
 const itemsAxiosResult = document.getElementById('itemsAxiosResult');
+const itemsFetchPostResult = document.getElementById('itemsFetchPostResult');
+const txtBarcode = document.getElementById('txtBarcode');
 
 // add click event to btnCylinders
 btnCylXMLHttp.addEventListener('click', (e) => {
@@ -56,37 +60,11 @@ btnCylXMLHttp.addEventListener('click', (e) => {
     xhr.send(null);
 });
 
-async function FetchTest() {
-    var url = `${globalUrl}/Cylinders/WS_GetCylinderItems.asmx/Cylinder_getCylinderItems`; 
-
-    var cylinderItem = {
-        "cylinderItem":
-        {
-            "supItem": 'REF-PR114R150'
-            , "itemMisId": 1056
-        }
-    };
-
-    let options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-            , 'Accept': 'application/json'
-        }
-        , body: JSON.stringify(cylinderItem)
-    };
-
-    //const response = await fetch(url, options);
-    const response = await fetch(url);
-    const data = await response.json();
-    console.log(data[0]);
-    return data;
-}
-
 // add click event to btnCylinders
 btnCylItemsFetch.addEventListener('click', (e) => {
-    let items;
-    FetchTest()
+    var items;
+    var url = `${globalUrl}/Cylinders/WS_GetCylinderItems.asmx/Cylinder_getCylinderItems`; 
+    FetchGet(url)
         .then(data => {
             console.log(data);
             data.forEach((curr, i, arr) => {
@@ -107,6 +85,65 @@ btnCylItemsAxios.addEventListener('click', (e) => {
 
                 itemsAxiosResult.innerHTML = `${item.SupItem} ${item.ItemMisId} <br> ${itemsAxiosResult.innerHTML}`;
             })
+            console.log(response);
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+        });
+})
+
+// add click event to btnCylinders
+btnFetchPost.addEventListener('click', (e) => {
+    const barcode = document.getElementById("txtBarcode").value;
+    const url = `${globalUrl}/Cylinders/WS_CylinderGetInformation.asmx/Cylinder_GetInformationByBarcodeOrSerial`; 
+    let items = "";
+    var cylinder = {
+        "cylinder":
+        {
+            "Barcode": barcode
+            , "Serial": ""
+        }
+    }
+    FetchPost(url, cylinder)
+        .then(data => {
+            console.log(data);
+            data.forEach((curr, i, arr) => {
+                console.log(`${curr.Barcode} ${curr.Serial}`);
+                items = `${curr.Barcode} ${curr.Serial} ${curr.CylSizeID} ${curr.RecertDateStr} ${curr.Tare} ${curr.RetLocID}`;
+            });
+            if (items.length != 0) {
+                itemsFetchPostResult.innerHTML = items;
+            } else {
+                itemsFetchPostResult.innerHTML = "Invalid Barcode";
+            }
+        });
+});
+
+btnAxiosPost.addEventListener('click', (e) => {
+    var url = `${globalUrl}/Cylinders/WS_CylinderGetInformation.asmx/Cylinder_GetInformationByBarcodeOrSerial`;
+    const barcode = document.getElementById("txtBarcode").value;
+    let items = "";
+    axios.post(`${url}`, {
+            cylinder:
+            {
+                Barcode: barcode
+                , Serial: ""
+            }
+        })
+        .then(function (response) {
+            // handle success
+            response.data.forEach((item) => {
+                items = `${item.Barcode} ${item.Serial} ${item.CylSizeID} ${item.RecertDateStr} ${item.Tare} ${item.RetLocID}`;
+            })
+            if (items.length != 0) {
+                itemsFetchPostResult.innerHTML = items;
+            } else {
+                itemsFetchPostResult.innerHTML = "Invalid Barcode";
+            }
             console.log(response);
         })
         .catch(function (error) {
