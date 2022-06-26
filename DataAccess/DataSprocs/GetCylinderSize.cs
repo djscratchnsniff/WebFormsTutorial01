@@ -21,7 +21,7 @@ namespace DataAccess.DataSprocs
             foreach (DataRow row in dt.Rows)
             {
                 CylinderSize cylinderSize = new CylinderSize();
-                cylinderSize.CylSizeID = $"Cylinder item is {row["cylSizeID"].ToString()} ";
+                cylinderSize.CylSizeID = $"Cylinder size is {row["cylSizeID"].ToString()} ";
                 cylinderSizes.Add(cylinderSize);
             }
             return cylinderSizes;

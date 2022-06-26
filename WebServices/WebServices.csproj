@@ -70,11 +70,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Cylinders\WS_CylinderGetInformation.asmx" />
     <Content Include="Cylinders\WS_GetCylinderItems.asmx" />
     <Content Include="Cylinders\WS_GetCylinderSize.asmx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cylinders\WS_CylinderGetInformation.asmx.cs">
+      <DependentUpon>WS_CylinderGetInformation.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Cylinders\WS_GetCylinderItems.asmx.cs">
       <DependentUpon>WS_GetCylinderItems.asmx</DependentUpon>
       <SubType>Component</SubType>
