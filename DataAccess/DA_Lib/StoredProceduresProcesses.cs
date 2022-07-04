@@ -34,5 +34,30 @@ namespace DataAccess
             }
             return result;
         }
+
+        public List<SqlParameter> ExecuteProcedureReturnOutputParameters(string connectionString, string procName, params SqlParameter[] parameters)
+        {
+            List<SqlParameter> result = new List<SqlParameter>();
+            using (var sqlConnection = new SqlConnection(connectionString))
+            {
+                using (var command = sqlConnection.CreateCommand())
+                {
+                    sqlConnection.Open();
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = procName;
+                    if (parameters != null)
+                    {
+                        command.Parameters.AddRange(parameters);
+                    }
+                    command.ExecuteNonQuery();
+                    var str = command.CommandText;
+                    foreach (var item in parameters)
+                    {
+                        result.Add(new SqlParameter(item.ParameterName, item.Value));
+                    }
+                }
+            }
+            return result;
+        }
     }
 }
